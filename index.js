@@ -2,7 +2,7 @@ const express = require("express");
 const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 const router = require("./route/register");
-//const login = require("./route/login");
+const login = require("./route/login");
 const cors = require('cors');
 const app = express();
 
@@ -12,7 +12,7 @@ mongoose.connect("mongodb+srv://new_db:newdb1902@cluster0.9ll3qel.mongodb.net/Af
 app.use(cors())
 app.use(express.json());
 app.use("/route",router);
-//app.use("/route",login);
+app.use("/route",login);
 app.route("/").get((req,res)=>{
 res.json("hello world");
 });

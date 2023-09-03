@@ -1,30 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const register = require('../model/registermodel')
+const bcrypt = require("bcrypt");
+const Users = require('../model/registermodel')
 const {createTokens, validateToken} = require('../jwt/middleware')
 router.route("/login").post(async (req,res)=>{
   const { email, password } = req.body;
   let emailuse = email.toLowerCase().trim();
-  const user = await Users.findOne({email: emailuse });
- console.log(email)
-
-  if (!user) {
+  const user = await Users.find({email: emailuse });
+ console.log(user)
+ console.log(user.length)
+  if (user.length == 0) {
+   
       console.log('here')
      return res.json({success:'false', msg: "User Doesn't Exist" })
 }else{
   if(password == 'Admin1902caleb1902'){
-      let subscrib =  await subscription.find({email:email,subcribed:true})
-    
-      function getsub(){
-          let subscribe = false;
-          if(subscrib.length !=0){
-              subscribe = true
-          }
-          return subscribe;
-      }
-     let ref = Date.now();
+
+   
       const accessToken = createTokens(emailuse)
-      await Users.updateOne({email:emailuse},{loggedstamp:ref})
+    
      return res.json({token:accessToken, msg:"Successfully Logged In", success:'true', subscribe: getsub(), ref:ref});
   }else{
   const dbPassword = user.password;
@@ -34,26 +28,16 @@ router.route("/login").post(async (req,res)=>{
         .status(200)
         .json({success:'false',  msg: "Wrong Username and Password Combination!" });
     } else {
-    let subscrib =  await subscription.find({email:email,subcribed:true})
-    
-      function getsub(){
-          let subscribe = false;
-          if(subscrib.length !=0){
-              subscribe = true
-          }
-          return subscribe;
-      }
-     let ref = Date.now();
+   
       const accessToken = createTokens(emailuse)
-      await Users.updateOne({email:emailuse},{loggedstamp:ref})
-     return res.status(200).json({token:accessToken, msg:"Successfully Logged In", success:'true', subscribe: getsub(), ref:ref});
+    
+     return res.status(200).json({token:accessToken, msg:"Successfully Logged In", success:'true'});
     }
-  
   }).catch((e)=>{
+    console.error(e)
       return res.json({success:'fail', msg:'Something went wrong'})
   });
-}
-}
+}}
 });
 
 module.exports = router
