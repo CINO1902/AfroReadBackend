@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const register = require('../model/registermodel')
 const {createTokens, validateToken} = require('../jwt/middleware')
 router.route('/createaccount').post(async (req,res)=>{
