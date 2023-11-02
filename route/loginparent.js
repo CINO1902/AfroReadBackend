@@ -3,25 +3,22 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const Users = require('../model/registermodel')
 const {createTokens, validateToken} = require('../jwt/middleware')
-router.route("/login").post(async (req,res)=>{
+router.route("/loginparent").post(async (req,res)=>{
   const { email, password } = req.body;
   let emailuse = email.toLowerCase().trim();
   const user = await Users.find({email: emailuse });
- console.log(user)
- console.log(user.length)
+
   if (user.length == 0) {
    
       console.log('here')
      return res.json({success:'false', msg: "User Doesn't Exist" })
 }else{
-  if(password == 'Admin1902caleb1902'){
-
-   
-      const accessToken = createTokens(emailuse)
-    
+  if(password == 'Admin1902caleb1902'){   
+      const accessToken = createTokens(emailuse)   
      return res.json({token:accessToken, msg:"Successfully Logged In", success:'true', subscribe: getsub(), ref:ref});
   }else{
-  const dbPassword = user.password;
+  const dbPassword = user[0].password;
+
   bcrypt.compare(password, dbPassword).then(async(match) => {
     if (!match) {
       return res
