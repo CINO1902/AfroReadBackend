@@ -20,7 +20,7 @@ router.route('/createaccount').post(async (req,res)=>{
            
         let hashpassword = await bcrypt.hash(password,10)
          await register.create({
-           fullname: fullname,
+             fullname: fullname,
              email: emailuse, 
              password:hashpassword,
              token:accessToken,

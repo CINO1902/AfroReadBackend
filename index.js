@@ -5,6 +5,7 @@ const router = require("./route/register");
 const login = require("./route/loginparent");
 const bookupload = require('./route/bookupload')
 const search = require('./route/search')
+const kidaccount = require('./route/createkidaccount')
 const cors = require('cors');
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/route",router);
 app.use("/route",login);
 app.use("/route",bookupload);
+app.use("/route",kidaccount);
 app.use("/route",search);
 app.route("/").get((req,res)=>{
 res.json("hello world");
