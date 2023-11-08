@@ -28,7 +28,7 @@ router.route('/createkidaccount').post(validateToken, async (req,res, next)=>{
                         return makeid(length);
       }
          await kidaccount.create({
-           fullname: fullname,
+          Name: fullname,
            Date_of_birth:Date_of_birth.replace(/ /g, ''),
            Username:username,
            parent_email:email,
@@ -76,7 +76,7 @@ router.route('/validateusername').post(async (req,res)=>{
       
            return res.json({status:"2", msg:"Account Empty"})
          }else{     
-            return res.json({status:"1", msg:getid}) 
+            return res.json({status:"1", msg:getid.reverse()}) 
          }
        }catch(err){
          console.error(err)
