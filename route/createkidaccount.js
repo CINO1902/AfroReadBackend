@@ -51,11 +51,15 @@ router.route('/createkidaccount').post(validateToken, async (req,res, next)=>{
 
 
 router.route('/validateusername').post(async (req,res)=>{
-    const username = req.query.username.trim();
+    const usernameL = req.query.username.toLowerCase().trim();
+    const usernameU = req.query.username.toUpperCase().trim();
 
      try{
-         let getid =  await kidaccount.find({Username: username});
-         if(getid.length != 0 || username == 'Caleb'){
+         const getid = await kidaccount.find({ Username: {
+          $regex: usernameL,
+          $regex: usernameU
+        }});
+         if(getid.length != 0){
       
            return res.json({status:"fail", msg:"User Already Exist"})
          }else{     
