@@ -8,7 +8,7 @@ const cloudinary = require('cloudinary').v2;
 cloudinary.config({ 
   cloud_name: 'dlsavisdq', 
   api_key: '195525497716576', 
-  api_secret: 'MABKs4xbcEj8AfH2ZPeC1t87jg4' 
+  api_secret: process.env.API_SECRET 
 });
 router.route('/uploadbooks').post(async (req,res)=>{
     const {book_title, author_name, Review, No_rated, Preview,link, added_by, image_url,genre} = req.body;
