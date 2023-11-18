@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
  const Schema = mongoose.Schema
 
- const kidaccount = Schema({
+ const pubisheraccount = Schema({
     Name :{
         type: String
     },
@@ -16,4 +16,4 @@ const mongoose = require('mongoose');
     }
  });
 
- module.exports = mongoose.model('kidaccount', kidaccount)
+ module.exports = mongoose.model('pubisheraccount', pubisheraccount)

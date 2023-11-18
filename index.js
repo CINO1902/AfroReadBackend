@@ -7,6 +7,7 @@ const bookupload = require('./route/bookupload')
 const search = require('./route/search')
 const kidaccount = require('./route/createkidaccount')
 const kidlogin = require('./route/loginkid')
+const publisheraccount = require('./route/publisheraccount')
 const cors = require('cors');
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/route",login);
 app.use("/route",bookupload);
 app.use("/route",kidaccount);
 app.use("/route",kidlogin);
+app.use("/route",publisheraccount);
 app.use("/route",search);
 app.route("/").get((req,res)=>{
 res.json("hello world");
