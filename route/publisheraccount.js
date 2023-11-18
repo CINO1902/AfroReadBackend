@@ -94,8 +94,7 @@ router.route("/loginpublisher").post(async (req,res)=>{
 
   router.route('/fetchpublisheraccount').post(validateToken, async (req,res)=>{
     let email = req.decoded.email
-
-
+    console.log(email)
      try{
          let getid =  await publisheraccount.find({email: email});
          if(getid.length == 0){
