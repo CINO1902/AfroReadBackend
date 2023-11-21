@@ -5,6 +5,7 @@ const Users = require('../model/registermodel')
 const {createTokens, validateToken} = require('../jwt/middleware')
 router.route("/loginparent").post(async (req,res)=>{
   const { email, password } = req.body;
+  console.log(email)
   let emailuse = email.toLowerCase().trim();
   const user = await Users.find({email: emailuse });
 

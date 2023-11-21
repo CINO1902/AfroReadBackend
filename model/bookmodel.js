@@ -13,10 +13,12 @@ const mongoose = require('mongoose');
     }, 
 
     Review:{
-        type:String
+        type:String,
+        default:'5'
     },
     No_rated:{
-        type:String
+        type:String,
+        default:'100'
     },
     Preview:{
         type:String
