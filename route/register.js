@@ -7,9 +7,9 @@ router.route('/createaccount').post(async (req,res)=>{
   const {fullname, email, password, date_of_birth, Security_Question, Security_ans} = req.body;
   let emailuse = email.toLowerCase().trim();
    let date = new Date();
-   let date_of_birth_day = date_of_birth.split('/')[0]
-   let date_of_birth_month = date_of_birth.split('/')[1]
-   let date_of_birth_year = date_of_birth.split('/')[2]
+   let date_of_birth_year = date_of_birth.split('-')[0]
+   let date_of_birth_month = date_of_birth.split('-')[1]
+   let date_of_birth_day = date_of_birth.split('-')[2]
    try{
        let getid =  await register.find({email: emailuse});
        if(getid.length != 0){

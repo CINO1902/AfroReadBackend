@@ -26,6 +26,9 @@ const mongoose = require('mongoose');
     link:{
         type:String
     },
+    suitable_age:{
+        type:String
+    },
     added_by:{
         type:String
     },

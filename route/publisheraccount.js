@@ -6,8 +6,8 @@ const books = require('../model/bookmodel');
 const {createTokens, validateToken } = require("../jwt/middleware");
 
 router.route('/createpublisheraccount').post( async (req,res)=>{
-  const {Name, Date_of_birth, email, password} = req.body;
-
+  const {fullname, email, password, date_of_birth, Security_Question, Security_ans} = req.body;
+ console.log(date_of_birth)
 
    try{
        let getid =  await publisheraccount.find({email: email});
@@ -18,11 +18,12 @@ router.route('/createpublisheraccount').post( async (req,res)=>{
         let hashpassword = await bcrypt.hash(password,10)
       
          await publisheraccount.create({
-          Name: Name,
-           Date_of_birth:Date_of_birth.replace(/ /g, ''),
-        
+          Name: fullname,
+           Date_of_birth:date_of_birth,
            email:email.toLowerCase(),
-           password: hashpassword
+           password: hashpassword,
+           Security_answer:Security_ans,
+           Security_question:Security_Question
          }).then( async()=>{ 
            return  res.json({status:"1", msg:"Dashboard Created"})
          }).catch((err)=>{

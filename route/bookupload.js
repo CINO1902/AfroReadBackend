@@ -9,7 +9,7 @@ require('dotenv').config();
 
 router.route('/uploadbooks').post(validateToken, async (req,res)=>{
   const email = req.decoded.email
-    const {book_title, author_name, Review, No_rated, Preview,link, added_by, image_url,genre} = req.body;
+    const {book_title, author_name, Review, No_rated, Preview,link, added_by, image_url,genre, age_bracket} = req.body;
 
     function createbooknumber(length){ 
         function makeid(length) {
@@ -40,6 +40,7 @@ return pubsend
           author_name:author_name,
           Preview:Preview,
           link:link,
+          suitable_age:age_bracket,
           added_by:getpub(),
           image_url:image_url,
           Genre:genre,
@@ -55,6 +56,26 @@ return pubsend
 })
 
 
+router.route('/edit_books').post(async (req,res)=>{
+  try{
+    let getbooks = await books.find()
+  
+  for(let i= 0; i< getbooks.length; i++ ){
+    console.log(getbooks[i].id)
+   await books.updateOne(
+      {id:getbooks[i].id},
+      { $set: { suitable_age: '14-17'}},{upsert:true})
+  }
+  
+   
+    
+    return res.json({status:"success"  })
+   
+  }catch(e){
+    console.error(e)
+    return res.json({status:'false'})
+  }
+})
 
 router.route('/call_books').post(async (req,res)=>{
   const page = parseInt(req.query.page) 
@@ -63,7 +84,7 @@ router.route('/call_books').post(async (req,res)=>{
   const endIndex = page * limit
 try{
   let getbooks = await books.find()
-
+console.log(getbooks)
   const pagnitedbooks = {}
   pagnitedbooks.pagnitedbooks = getbooks.reverse().slice(startIndex, endIndex)
  
