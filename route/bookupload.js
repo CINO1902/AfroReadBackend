@@ -61,7 +61,7 @@ router.route('/edit_books').post(async (req,res)=>{
     let getbooks = await books.find()
   
   for(let i= 0; i< getbooks.length; i++ ){
-    console.log(getbooks[i].id)
+
    await books.updateOne(
       {id:getbooks[i].id},
       { $set: { suitable_age: '14-17'}},{upsert:true})
@@ -84,7 +84,7 @@ router.route('/call_books').post(async (req,res)=>{
   const endIndex = page * limit
 try{
   let getbooks = await books.find()
-console.log(getbooks)
+
   const pagnitedbooks = {}
   pagnitedbooks.pagnitedbooks = getbooks.reverse().slice(startIndex, endIndex)
  
@@ -119,6 +119,24 @@ console.log(getbooks)
 
 })
 
+router.route('/findbook').post( async (req,res)=>{
+const {keyword} = req.body
+try{
+
+  let bookcalled = await books.find({id: { $in : keyword}})
+  console.log(keyword)
+  if(bookcalled.length == 0){
+    return res.json({status:"2",  notific: 'empty'})
+  }else{
+   
+    return res.json({status:"1",  ReadBook: bookcalled})
+  }
+ 
+}catch(e){
+  return res.json({status:"3"})
+}
+
+})
 
 router.route('/call_my_books').post(validateToken, async (req,res)=>{
   const email = req.decoded.email
@@ -139,7 +157,7 @@ router.route('/call_my_books').post(validateToken, async (req,res)=>{
   }
 try{
   let getbooks = await books.find({added_by:getpub()})
-console.log(getbooks);
+
   const pagnitedbooks = {}
   pagnitedbooks.pagnitedbooks = getbooks.reverse().slice(startIndex, endIndex)
  

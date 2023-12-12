@@ -28,10 +28,6 @@ const resultsWithCommonWordCount = booksreport.map(result => {
     };
   });
 
-
-
-
-
   // Sort the results based on the number of common words (in descending order)
   resultsWithCommonWordCount.sort((a, b) => b.commonWordCount - a.commonWordCount);
 
