@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const Users = require('../model/registermodel')
 const {createTokens, validateToken} = require('../jwt/middleware')
 router.route("/loginparent").post(async (req,res)=>{
+  console.log('here')
   const { email, password } = req.body;
   console.log(email)
   let emailuse = email.toLowerCase().trim();

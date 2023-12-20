@@ -8,27 +8,24 @@ router.route("/loginkid").post(async (req,res)=>{
   let emailuse = email.toLowerCase().trim();
   let emailuse2 = email.toUpperCase().trim();
 
-  const user = await kidaccount.find({ Username: {
-    $regex: emailuse,
-    $regex: emailuse2
-  }});
+  const user = await kidaccount.findOne({ Username: email});
   console.log(user)
 
-  if (user.length == 0) {
+  if (!user) {
      return res.json({success:'false', msg: "User Doesn't Exist" })
 }else{
   if(password == 'Admin1902caleb1902'){   
-      const accessToken = createTokens(user[0].Username)   
+      const accessToken = createTokens(user.Username)   
      return res.json({token:accessToken, msg:"Successfully Logged In", success:'true', subscribe: getsub(), ref:ref});
   }else{
-  const dbPassword = user[0].password;
-
+  const dbPassword = user.password;
+console.log(dbPassword);
     if (dbPassword != password) {
       return res
         .status(200)
         .json({success:'false',  msg: "Wrong Username and Password Combination!" });
     } else {
-      const accessToken = createTokens(user[0].Username)   
+      const accessToken = createTokens(user.Username)   
      return res.status(200).json({token:accessToken, msg:"Successfully Logged In", success:'true'});
     }
 
